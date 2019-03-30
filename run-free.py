@@ -21,6 +21,8 @@ http://programarcadegames.com/python_examples/sprite_sheets/
 """
 
 import pygame
+# import cairo
+# import rsvg
 
 # Global constants
 
@@ -42,7 +44,7 @@ class Player(pygame.sprite.Sprite):
     """
 
     # -- Methods
-    def __init__(self):
+    def __init__(self, image):
         """ Constructor function """
 
         # Call the parent's constructor
@@ -52,8 +54,7 @@ class Player(pygame.sprite.Sprite):
         # This could also be an image loaded from the disk.
         width = 40
         height = 60
-        self.image = pygame.Surface([width, height])
-        self.image.fill(RED)
+        self.image = image
 
         # Set a referance to the image rect.
         self.rect = self.image.get_rect()
@@ -257,6 +258,15 @@ class Level_02(Level):
             self.platform_list.add(block)
 
 
+# def load_sprites():
+#     WIDTH, HEIGHT = 256, 256
+#     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, WIDTH, HEIGHT)
+#     ctx = cairo.Context(surface)
+#     svg = rsvg.Handle(file="images/PlayerIdle1.svg")
+#     svg.render_cairo(ctx)
+#     surface.write_to_png("PlayerIdle1.png")
+
+
 def main():
     """ Main Program """
     pygame.init()
@@ -265,10 +275,13 @@ def main():
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Side-scrolling Platformer")
+    pygame.display.set_caption("Run free")
+
+    # load_sprites()
+    characterImage = pygame.image.load('images/PlayerIdle1.png').convert_alpha()
 
     # Create the player
-    player = Player()
+    player = Player(characterImage)
 
     # Create all the levels
     level_list = []
